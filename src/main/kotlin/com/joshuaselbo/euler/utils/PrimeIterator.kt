@@ -1,8 +1,8 @@
 package com.joshuaselbo.euler.utils
 
-class PrimeIterator(nth: Int = 1): Iterator<Int> {
+class PrimeIterator(nth: Int = 1): Iterator<Long> {
 
-    private var nextPrime = 2
+    private var nextPrime = 2L
 
     init {
         if (nth < 1) throw IllegalArgumentException()
@@ -14,10 +14,10 @@ class PrimeIterator(nth: Int = 1): Iterator<Int> {
 
     override fun hasNext(): Boolean = true
 
-    override fun next(): Int {
+    override fun next(): Long {
         val ret = nextPrime
 
-        if (nextPrime == 2) {
+        if (nextPrime == 2L) {
             nextPrime = 3
         } else {
             // Check odd numbers until we find the next prime

@@ -9,7 +9,7 @@ fun problem51() {
     val familylen = 8
 
     val pi = PrimeIterator()
-    var prime: Int
+    var prime: Long
     do {
         prime = pi.next()
     } while (prime < start)

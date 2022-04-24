@@ -1,6 +1,5 @@
-import com.joshuaselbo.euler.PrimeFactor
-import com.joshuaselbo.euler.utils.toDigits
-import com.joshuaselbo.euler.toInt
+
+import com.joshuaselbo.euler.utils.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalArgumentException
@@ -12,13 +11,13 @@ class IntUtilsTest {
 
     @Test
     fun isPalindrome() {
-        assertTrue(com.joshuaselbo.euler.utils.isPalindrome(1))
-        assertTrue(com.joshuaselbo.euler.utils.isPalindrome(1001))
-        assertTrue(com.joshuaselbo.euler.utils.isPalindrome(53735))
+        assertTrue(isPalindrome(1))
+        assertTrue(isPalindrome(1001))
+        assertTrue(isPalindrome(53735))
 
-        assertFalse(com.joshuaselbo.euler.utils.isPalindrome(10))
-        assertFalse(com.joshuaselbo.euler.utils.isPalindrome(100))
-        assertFalse(com.joshuaselbo.euler.utils.isPalindrome(38823))
+        assertFalse(isPalindrome(10))
+        assertFalse(isPalindrome(100))
+        assertFalse(isPalindrome(38823))
     }
 
     @Test
@@ -47,33 +46,33 @@ class IntUtilsTest {
 
     @Test
     fun isPrime() {
-        assertFalse(com.joshuaselbo.euler.isPrime(-5))
-        assertFalse(com.joshuaselbo.euler.isPrime(0))
-        assertFalse(com.joshuaselbo.euler.isPrime(1))
-        assertFalse(com.joshuaselbo.euler.isPrime(4))
-        assertFalse(com.joshuaselbo.euler.isPrime(65))
+        assertFalse(isPrime(-5))
+        assertFalse(isPrime(0))
+        assertFalse(isPrime(1))
+        assertFalse(isPrime(4))
+        assertFalse(isPrime(65))
 
-        assertTrue(com.joshuaselbo.euler.isPrime(2))
-        assertTrue(com.joshuaselbo.euler.isPrime(3))
-        assertTrue(com.joshuaselbo.euler.isPrime(5))
-        assertTrue(com.joshuaselbo.euler.isPrime(7))
-        assertTrue(com.joshuaselbo.euler.isPrime(13))
-        assertTrue(com.joshuaselbo.euler.isPrime(17))
-        assertTrue(com.joshuaselbo.euler.isPrime(19))
-        assertTrue(com.joshuaselbo.euler.isPrime(23))
-        assertTrue(com.joshuaselbo.euler.isPrime(29))
-        assertTrue(com.joshuaselbo.euler.isPrime(31))
-        assertTrue(com.joshuaselbo.euler.isPrime(37))
-        assertTrue(com.joshuaselbo.euler.isPrime(41))
+        assertTrue(isPrime(2))
+        assertTrue(isPrime(3))
+        assertTrue(isPrime(5))
+        assertTrue(isPrime(7))
+        assertTrue(isPrime(13))
+        assertTrue(isPrime(17))
+        assertTrue(isPrime(19))
+        assertTrue(isPrime(23))
+        assertTrue(isPrime(29))
+        assertTrue(isPrime(31))
+        assertTrue(isPrime(37))
+        assertTrue(isPrime(41))
     }
 
     @Test
     fun primeFactors() {
-        assertEquals(listOf(PrimeFactor(2, 1)), com.joshuaselbo.euler.primeFactors(2))
-        assertEquals(listOf(PrimeFactor(2, 2)), com.joshuaselbo.euler.primeFactors(4))
-        assertEquals(listOf(PrimeFactor(3, 2)), com.joshuaselbo.euler.primeFactors(9))
-        assertEquals(listOf(PrimeFactor(2, 3), PrimeFactor(3, 1)), com.joshuaselbo.euler.primeFactors(24))
+        assertEquals(listOf(PrimeFactor(2, 1)), primeFactors(2))
+        assertEquals(listOf(PrimeFactor(2, 2)), primeFactors(4))
+        assertEquals(listOf(PrimeFactor(3, 2)), primeFactors(9))
+        assertEquals(listOf(PrimeFactor(2, 3), PrimeFactor(3, 1)), primeFactors(24))
 
-        assertThrows<IllegalArgumentException> { com.joshuaselbo.euler.primeFactors(1) }
+        assertThrows<IllegalArgumentException> { primeFactors(1) }
     }
 }
