@@ -50,6 +50,7 @@ class IntUtilsTest {
         assertFalse(isPrime(0))
         assertFalse(isPrime(1))
         assertFalse(isPrime(4))
+        assertFalse(isPrime(25))
         assertFalse(isPrime(65))
 
         assertTrue(isPrime(2))

@@ -61,8 +61,7 @@ fun isPrime(n: Long): Boolean {
     if (n % 2 == 0L || n % 3 == 0L) return false
 
     var k = 6
-    // while k <= sqrt(n)
-    while (k * k <= n) {
+    while (k - 1 <= sqrt(n.toDouble())) {
         if (n % (k - 1) == 0L) return false
         if (n % (k + 1) == 0L) return false
         k += 6
