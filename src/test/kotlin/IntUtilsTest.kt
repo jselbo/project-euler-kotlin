@@ -3,6 +3,7 @@ import com.joshuaselbo.euler.utils.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.lang.IllegalArgumentException
+import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -75,5 +76,17 @@ class IntUtilsTest {
         assertEquals(listOf(PrimeFactor(2, 3), PrimeFactor(3, 1)), primeFactors(24))
 
         assertThrows<IllegalArgumentException> { primeFactors(1) }
+    }
+
+    @Test
+    fun divisors() {
+        assertEquals(listOf(1), divisors(1).sorted())
+        assertEquals(listOf(1, 2), divisors(2).sorted())
+        assertEquals(listOf(1, 2, 3, 6), divisors(6).sorted())
+        assertEquals(listOf(1, 3, 9), divisors(9).sorted())
+        assertEquals(listOf(1, 2, 4, 8, 16, 127, 254, 508, 1016, 2032), divisors(2032).sorted())
+
+        assertThrows<IllegalArgumentException> { divisors(-1) }
+        assertThrows<IllegalArgumentException> { divisors(0) }
     }
 }

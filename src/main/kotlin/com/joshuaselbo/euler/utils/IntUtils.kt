@@ -95,3 +95,26 @@ fun primeFactors(n: Long): List<PrimeFactor> {
     }
     return primeFactors
 }
+
+fun divisors(n: Int): List<Int> = divisors(n.toLong()).map(Long::toInt)
+
+/**
+ * Divisors are returned in no particular order.
+ */
+fun divisors(n: Long): List<Long> {
+    require(n > 0)
+
+    val divisors = mutableListOf<Long>(1)
+    if (n > 1) {
+        divisors.add(n)
+    }
+    for (i in 2..sqrt(n.toDouble()).toLong()) {
+        if (n % i == 0L) {
+            divisors.add(i)
+            if (i != n / i) {
+                divisors.add(n / i)
+            }
+        }
+    }
+    return divisors
+}
