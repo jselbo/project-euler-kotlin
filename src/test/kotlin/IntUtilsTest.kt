@@ -74,6 +74,7 @@ class IntUtilsTest {
         assertEquals(listOf(PrimeFactor(2, 2)), primeFactors(4))
         assertEquals(listOf(PrimeFactor(3, 2)), primeFactors(9))
         assertEquals(listOf(PrimeFactor(2, 3), PrimeFactor(3, 1)), primeFactors(24))
+        assertEquals(listOf(PrimeFactor(2, 1), PrimeFactor(7, 1)), primeFactors(14))
 
         assertThrows<IllegalArgumentException> { primeFactors(1) }
     }

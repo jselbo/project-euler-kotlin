@@ -48,14 +48,28 @@ fun isPalindrome(n: Long): Boolean {
     return digits == digits.reversed()
 }
 
+fun isPalindrome(s: String): Boolean = s == s.reversed()
+
+private val primeCache = mutableSetOf<Long>()
+private var primeCacheEnd = 0L
+
 fun isPrime(n: Int): Boolean = isPrime(n.toLong())
 
-/**
- * Trial division using 6k+-1 optimization
- *
- * Ref: https://en.wikipedia.org/wiki/Primality_test
- */
 fun isPrime(n: Long): Boolean {
+    if (n > primeCacheEnd) {
+        for (i in primeCacheEnd + 1..n) {
+            if (isPrimeInternal(i)) {
+                primeCache.add(i)
+            }
+        }
+        primeCacheEnd = n
+    }
+    return primeCache.contains(n)
+}
+
+fun isPrimeInternal(n: Long): Boolean {
+    // Trial division using 6k+-1 optimization
+    // Ref: https://en.wikipedia.org/wiki/Primality_test
     if (n <= 1) return false
     if (n == 2L || n == 3L) return true
     if (n % 2 == 0L || n % 3 == 0L) return false
@@ -75,23 +89,28 @@ data class PrimeFactor(val factor: Long, val exp: Int) {
     }
 }
 
+fun primeFactors(n: Int): List<PrimeFactor> = primeFactors(n.toLong())
+
 fun primeFactors(n: Long): List<PrimeFactor> {
     require(n >= 2)
+
+    if (isPrime(n)) {
+        return listOf(PrimeFactor(n, 1))
+    }
+
     var running = n
 
-    val pi = PrimeIterator()
-    var prime = pi.next()
     val primeFactors = mutableListOf<PrimeFactor>()
-    while (prime <= ceil(sqrt(n.toDouble()))) {
+    for (i in 2..n/2) {
+        if (!isPrime(i)) continue
         var exp = 0
-        while (running % prime == 0L) {
-            running /= prime
+        while (running % i == 0L) {
+            running /= i
             exp++
         }
         if (exp > 0) {
-            primeFactors.add(PrimeFactor(prime, exp))
+            primeFactors.add(PrimeFactor(i, exp))
         }
-        prime = pi.next()
     }
     return primeFactors
 }
@@ -101,11 +120,20 @@ fun divisors(n: Int): List<Int> = divisors(n.toLong()).map(Long::toInt)
 /**
  * Divisors are returned in no particular order.
  */
-fun divisors(n: Long): List<Long> {
+fun divisors(n: Long): List<Long> = divisorsInternal(n, proper = false)
+
+fun properDivisors(n: Int): List<Int> = properDivisors(n.toLong()).map(Long::toInt)
+
+fun properDivisors(n: Long): List<Long> = divisorsInternal(n, proper = true)
+
+private fun divisorsInternal(n: Long, proper: Boolean): List<Long> {
     require(n > 0)
 
     val divisors = mutableListOf<Long>(1)
-    if (n > 1) {
+    if (n == 1L) {
+        return divisors
+    }
+    if (!proper) {
         divisors.add(n)
     }
     for (i in 2..sqrt(n.toDouble()).toLong()) {
@@ -117,4 +145,32 @@ fun divisors(n: Long): List<Long> {
         }
     }
     return divisors
+}
+
+fun factorial(n: Int): Int = factorial(n.toLong()).toInt()
+
+fun factorial(n: Long): Long {
+    if (n == 0L) return 1
+
+    var product = n
+    for (i in 2 until n) {
+        product *= i
+    }
+    return product
+}
+
+fun isPandigital(num: Int): Boolean {
+    val digits = num.toDigits()
+    if (digits.size > 9) return false
+    for (i in 1..digits.size) {
+        var contains = false
+        for (j in digits.indices) {
+            if (i == digits[j]) {
+                contains = true
+                break
+            }
+        }
+        if (!contains) return false
+    }
+    return true
 }

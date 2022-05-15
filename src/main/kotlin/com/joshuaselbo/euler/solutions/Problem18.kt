@@ -1,14 +1,11 @@
 package com.joshuaselbo.euler.solutions
 
+import com.joshuaselbo.euler.utils.*
 import java.io.BufferedReader
 import kotlin.math.max
 
-class DummyClass
-
 fun problem18() {
-    val inputStream = DummyClass::class.java.classLoader.getResourceAsStream("p18_triangle.txt") ?: throw RuntimeException()
-    val lines = inputStream.bufferedReader().use(BufferedReader::readLines)
-    inputStream.close()
+    val lines = readLines("p18_triangle.txt")
 
     val triangle = Array(lines.size) { i -> IntArray(i+1) }
     for (i in lines.indices) {

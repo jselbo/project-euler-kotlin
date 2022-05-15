@@ -1,6 +1,6 @@
 package com.joshuaselbo.euler.solutions
 
-import java.io.BufferedReader
+import com.joshuaselbo.euler.utils.readLines
 
 /**
  * @author Jacob Selbo
@@ -22,10 +22,7 @@ fun problem59() {
         return output
     }
 
-    val cipherStream = DummyClass::class.java.classLoader.getResourceAsStream("p059_cipher.txt") ?: throw RuntimeException()
-
-    val cipherLine = cipherStream.bufferedReader().use(BufferedReader::readLines)[0]
-    cipherStream.close()
+    val cipherLine = readLines("p059_cipher.txt")[0]
 
     val cipherInts = cipherLine.split(',').map { it.toInt() }
 

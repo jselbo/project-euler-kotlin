@@ -1,5 +1,8 @@
 package com.joshuaselbo.euler.utils
 
+import java.math.BigDecimal
+import java.math.RoundingMode
+
 /**
  * Immutable.
  *
@@ -9,9 +12,44 @@ class Rational(val numerator: Long, val denominator: Long) {
 
     constructor(value: Long) : this(value, 1)
     constructor(value: Int) : this(value.toLong())
+    constructor(numerator: Int, denominator: Int) : this(numerator.toLong(), denominator.toLong())
 
-    fun asDecimal(): Double {
+    fun toDecimal(): Double {
         return numerator.toDouble() / denominator
+    }
+
+    /**
+     * From the docs of [BigDecimal.divide] with single argument:
+     *
+     * @throws ArithmeticException – if the exact quotient does not have a terminating decimal expansion
+     */
+    fun toBigDecimal(): BigDecimal {
+        return BigDecimal.valueOf(numerator).divide(BigDecimal.valueOf(denominator))
+    }
+
+    fun toBigDecimal(scale: Int, roundingMode: RoundingMode): BigDecimal {
+        return BigDecimal.valueOf(numerator).divide(BigDecimal.valueOf(denominator), scale, roundingMode)
+    }
+
+    /**
+     * Returns a Rational representing the same number but in reduced form.
+     */
+    fun toReduced(): Rational {
+        return if (numerator <= 0 || (isPrime(numerator) && isPrime(denominator))) {
+            this
+        } else {
+            val numeratorFactors = divisors(numerator).sorted()
+            val denominatorFactors = divisors(denominator).sorted()
+            var useFactor = 1L
+
+            for (factor in numeratorFactors.asReversed()) {
+                if (denominatorFactors.contains(factor)) {
+                    useFactor = factor
+                    break
+                }
+            }
+            Rational(numerator / useFactor, denominator / useFactor)
+        }
     }
 
     operator fun plus(other: Rational): Rational {
@@ -57,25 +95,3 @@ class Rational(val numerator: Long, val denominator: Long) {
         require(denominator > 0) { "Denominator must be greater than 0" }
     }
 }
-/*
-    // This reduces a fraction, but it increases time complexity massively
-
-    if (numerator > 0 && (!isPrime(numerator) || !isPrime(denominator))) {
-        val numeratorFactors = divisors(numerator).sorted()
-        val denominatorFactors = divisors(denominator).sorted()
-        var useFactor: Long = 1
-
-        for (factor in numeratorFactors.reversed()) {
-            if (denominatorFactors.contains(factor)) {
-                useFactor = factor
-                break
-            }
-        }
-
-        this.numerator = numerator / useFactor
-        this.denominator = denominator / useFactor
-    } else {
-        this.numerator = numerator
-        this.denominator = denominator
-    }
- */

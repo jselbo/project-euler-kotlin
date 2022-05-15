@@ -1,7 +1,5 @@
 package com.joshuaselbo.euler.utils
 
-import java.io.BufferedReader
-
 enum class Suit {
     CLUB, SPADE, DIAMOND, HEART;
 
@@ -235,11 +233,7 @@ class PokerHand(cards: List<Card>) : Comparable<PokerHand> {
 }
 
 fun parseHands(filename: String): List<Pair<PokerHand, PokerHand>> {
-    val inputStream = Card::class.java.classLoader.getResourceAsStream(filename) ?: throw java.lang.RuntimeException()
-    val handLines = inputStream.bufferedReader().use(BufferedReader::readLines)
-    inputStream.close()
-
-    return handLines.map(::parseHand)
+    return readLines(filename).map(::parseHand)
 }
 
 fun parseHand(str: String): Pair<PokerHand, PokerHand> {
