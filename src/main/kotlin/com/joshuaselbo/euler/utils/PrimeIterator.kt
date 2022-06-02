@@ -29,4 +29,12 @@ class PrimeIterator(nth: Int = 1): Iterator<Long> {
         return ret
     }
 
+    companion object {
+
+        /** Returns array of [n] primes. */
+        fun generate(n: Int): LongArray {
+            val pi = PrimeIterator()
+            return LongArray(n) { pi.next() }
+        }
+    }
 }
