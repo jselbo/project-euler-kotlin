@@ -55,6 +55,10 @@ private var primeCacheEnd = 0L
 
 fun isPrime(n: Int): Boolean = isPrime(n.toLong())
 
+fun isPrimeNoCache(n: Int): Boolean = isPrimeNoCache(n.toLong())
+
+fun isPrimeNoCache(n: Long): Boolean = isPrimeInternal(n)
+
 fun isPrime(n: Long): Boolean {
     if (n > primeCacheEnd) {
         for (i in primeCacheEnd + 1..n) {
