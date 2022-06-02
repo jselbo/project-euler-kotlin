@@ -12,10 +12,10 @@ fun problem57() {
     var total = 0
 
     var i = 1
-    var value = BigIntegerRational(BigInteger.ONE, BigInteger.TWO)
+    var value = BigIntegerRational(BigInteger.ONE, 2.toBigInteger())
 
     while (i <= 1000) {
-        value = BigIntegerRational(BigInteger.ONE) / (value + BigInteger.TWO)
+        value = BigIntegerRational(BigInteger.ONE) / (value + 2.toBigInteger())
         values.add(value + BigInteger.ONE)
 //        println("$i: ${value+BigInteger.ONE}")
         i++

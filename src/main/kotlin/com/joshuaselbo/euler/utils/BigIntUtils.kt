@@ -18,7 +18,7 @@ fun factorial(n: BigInteger): BigInteger {
 
     var result = n
     var i = n.minus(BigInteger.ONE)
-    while (i >= BigInteger.TWO) {
+    while (i >= 2.toBigInteger()) {
         result *= i
         i = i.minus(BigInteger.ONE)
     }
